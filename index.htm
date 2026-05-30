@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Федерация зимнего плавания Челябинской области</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- Переменные --- */
+        :root {
+            --primary: #00d4ff;      /* Ледяной неон */
+            --secondary: #a855f7;     /* Фиолетовый оттенок */
+            --glass: rgba(18, 28, 46, 0.4);
+            --glass-border: rgba(100, 220, 255, 0.15);
+            --text: #e0f2fe;
+            --dark: #0b0e1a;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--dark);
+            color: var(--text);
+            font-family: 'Rajdhani', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        h1, h2, h3, .logo { font-family: 'Orbitron', sans-serif; letter-spacing: 2px; }
+        a { color: var(--primary); text-decoration: none; transition: 0.3s; }
+        a:hover { color: var(--secondary); }
+
+        /* --- Стеклянный эффект --- */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+        }
+
+        /* --- Шапка --- */
+        header {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .logo {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+        }
+        nav a {
+            margin: 0 15px;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        .btn {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: #fff;
+            padding: 12px 32px;
+            border-radius: 100px;
+            border: none;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(0, 180, 255, 0.2);
+        }
+        .btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 40px rgba(0, 180, 255, 0.4);
+        }
+
+        /* --- Герой --- */
+        .hero {
+            text-align: center;
+            padding: 80px 20px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            color: #aac4d9;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+        .hero .btn {
+            padding: 16px 48px;
+            font-size: 1.2rem;
+        }
+
+        /* --- Секции --- */
+        section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 25px;
+            transition: 0.3s;
+        }
+        .card:hover { border-color: var(--primary); transform: translateY(-6px); }
+        .card i { font-size: 2.5rem; color: var(--primary); margin-bottom: 15px; }
+        .card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .card p { color: #aac4d9; }
+        .card .btn { margin-top: 15px; padding: 8px 24px; font-size: 0.9rem; }
+
+        /* --- Новости --- */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .news-item {
+            background: var(--glass);
+            padding: 20px 25px;
+            border-radius: 16px;
+            border-left: 4px solid var(--primary);
+        }
+        .news-item h4 { font-size: 1.3rem; }
+        .news-item .date { color: #5a7a94; font-size: 0.9rem; margin-top: 5px; }
+
+        /* --- Таблица результатов (пример) --- */
+        .table-wrap { overflow-x: auto; }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        th { background: rgba(0, 212, 255, 0.1); color: var(--primary); font-weight: 700; }
+        tr:hover { background: rgba(255, 255, 255, 0.03); }
+
+        /* --- Контакты --- */
+        .contact-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+        }
+        .contact-flex > div { flex: 1; min-width: 250px; }
+        .contact-flex i { margin-right: 12px; color: var(--primary); }
+
+        /* --- Подвал --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--glass-border);
+            margin-top: 60px;
+            color: #5a7a94;
+        }
+
+        /* --- Адаптивность --- */
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; }
+            nav a { margin: 0 10px; }
+            .hero h1 { font-size: 2.5rem; }
+            .section-title { font-size: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="logo">❄️ ФЗПЧО</div>
+        <nav>
+            <a href="#about">О нас</a>
+            <a href="#news">Новости</a>
+            <a href="#calendar">Календарь</a>
+            <a href="#results">Результаты</a>
+            <a href="#contacts">Контакты</a>
+        </nav>
+        <a href="#join" class="btn">Вступить</a>
+    </header>
+
+    <!-- Герой -->
+    <div class="hero">
+        <h1>Федерация зимнего плавания<br>Челябинской области</h1>
+        <p>Объединяем моржей, любителей холодной воды и профессиональных пловцов. Соревнования, тренировки, рекорды.</p>
+        <a href="#about" class="btn">Узнать больше</a>
+    </div>
+
+    <!-- О нас -->
+    <section id="about">
+        <h2 class="section-title">О федерации</h2>
+        <div class="grid-2">
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>Наша миссия</h3>
+                <p>Развитие зимнего плавания в Челябинской области, популяризация здорового образа жизни и закаливания.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-trophy"></i>
+                <h3>Достижения</h3>
+                <p>Проведение областных соревнований, подготовка сборной команды к чемпионатам России и мира.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-map-marker-alt"></i>
+                <h3>Где мы</h3>
+                <p>Челябинск, озёра Увильды, Тургояк, а также открытые водоёмы области в зимний период.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Новости -->
+    <section id="news">
+        <h2 class="section-title">Новости</h2>
+        <div class="news-list">
+            <div class="news-item">
+                <h4>Открытие зимнего сезона 2026</h4>
+                <div class="date">15 декабря 2025</div>
+                <p>Приглашаем всех желающих на традиционное открытие сезона на озере Смолино. Старт в 10:00.</p>
+            </div>
+            <div class="news-item">
+                <h4>Чемпионат области — результаты</h4>
+                <div class="date">10 марта 2025</div>
+                <p>Определены победители и призёры в дистанциях 25, 50 и 100 метров вольным стилем.</p>
+            </div>
+            <div class="news-item">
+                <h4>Семинар для судей и тренеров</h4>
+                <div class="date">20 февраля 2025</div>
+                <p>Обучение правилам зимнего плавания, безопасности на открытой воде и методикам тренировок.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Календарь -->
+    <section id="calendar">
+        <h2 class="section-title">Календарь соревнований</h2>
+        <div class="grid-2">
+            <div class="card">
+                <h3>❄️ 11–12 января 2026</h3>
+                <p>Кубок Челябинской области по зимнему плаванию (оз. Увильды).</p>
+            </div>
+            <div class="card">
+                <h3>❄️ 15 февраля 2026</h3>
+                <p>Открытое первенство города Челябинска «Ледяная миля».</p>
+            </div>
+            <div class="card">
+                <h3>❄️ 1–2 марта 2026</h3>
+                <p>Финал Кубка России. Челябинская область, озеро Тургояк.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Результаты -->
+    <section id="results">
+        <h2 class="section-title">Результаты соревнований</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Место</th>
+                        <th>Участник</th>
+                        <th>Дистанция</th>
+                        <th>Время</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>🥇 1</td>
+                        <td>Иванов А.С.</td>
+                        <td>50 м в/с</td>
+                        <td>00:28.5</td>
+                    </tr>
+                    <tr>
+                        <td>🥈 2</td>
+                        <td>Смирнова Е.В.</td>
+                        <td>50 м в/с</td>
+                        <td>00:30.1</td>
+                    </tr>
+                    <tr>
+                        <td>🥉 3</td>
+                        <td>Петров К.В.</td>
+                        <td>25 м брасс</td>
+                        <td>00:17.2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Контакты -->
+    <section id="contacts">
+        <h2 class="section-title">Контакты</h2>
+        <div class="contact-flex glass">
+            <div>
+                <h3><i class="fas fa-map-pin"></i> Адрес</h3>
+                <p>г. Челябинск, ул. Российская, 40</p>
+                <p>Бассейн «Электрометаллург»</p>
+            </div>
+            <div>
+                <h3><i class="fas fa-envelope"></i> Email</h3>
+                <p><a href="mailto:info@fzp74.ru">info@fzp74.ru</a></p>
+            </div>
+            <div>
+                <h3><i class="fas fa-phone"></i> Телефон</h3>
+                <p>+7 (351) 123-45-67</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Вступление (быстрая форма) -->
+    <section id="join">
+        <h2 class="section-title">Вступить в федерацию</h2>
+        <div class="glass" style="max-width: 600px; margin: 0 auto;">
+            <p style="margin-bottom: 20px;">Заполните заявку, и мы свяжемся с вами.</p>
+            <form>
+                <div style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="text" placeholder="Ваше имя" style="padding: 14px 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Rajdhani'; font-size: 1rem;">
+                    <input type="email" placeholder="Email" style="padding: 14px 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Rajdhani'; font-size: 1rem;">
+                    <button type="submit" class="btn" style="align-self: flex-start;">Отправить заявку</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <p>© 2026 Федерация зимнего плавания Челябинской области</p>
+        <p style="margin-top: 8px; font-size: 0.9rem;">Сайт разработан в стиле 2026</p>
+    </footer>
+
+</body>
+</html>
