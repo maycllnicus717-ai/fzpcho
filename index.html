@@ -203,7 +203,7 @@
             <div class="card">
                 <i class="fas fa-map-marker-alt"></i>
                 <h3>Где мы</h3>
-                <p>Челябинск, озеро Смолино, Первое озеро, Тургояк, а также открытые водоёмы области в зимний период.</p>
+                <p>Челябинск, озёра Смолино, Первое озеро, Тургояк, а также открытые водоёмы области в зимний период.</p>
             </div>
         </div>
     </section>
@@ -233,13 +233,12 @@
         <h2 class="section-title">Вступить в федерацию</h2>
         <div class="glass" style="max-width: 600px; margin: 0 auto;">
             <p style="margin-bottom: 20px;">Заполните заявку, и мы свяжемся с вами.</p>
-            <form action="https://Mikhail897.pythonanywhere.com/submit" method="POST">
-                <div style="display: flex; flex-direction: column; gap: 15px;">
-                    <input type="text" placeholder="Ваше имя" style="padding: 14px 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Rajdhani'; font-size: 1rem;">
-                    <input type="email" placeholder="Email" style="padding: 14px 20px; border-radius: 12px; border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: #fff; font-family: 'Rajdhani'; font-size: 1rem;">
-                    <button type="submit" class="btn" style="align-self: flex-start;">Отправить заявку</button>
-                </div>
+            <form id="emailjs-form">
+                <input type="text" name="name" placeholder="Ваше имя" required style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px;">
+                <input type="email" name="email" placeholder="Email" required style="width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px;">
+                <button type="submit" class="btn">Отправить заявку</button>
             </form>
+            <div id="message" style="margin-top: 15px;"></div>
         </div>
     </section>
 
@@ -248,6 +247,35 @@
         <p>© 2026 Федерация зимнего плавания Челябинской области</p>
         <p style="margin-top: 8px; font-size: 0.9rem;">Сайт разработан в стиле 2026</p>
     </footer>
+
+    <!-- Скрипт EmailJS -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // ВАШ Public Key
+            emailjs.init('CkeDzCISzXv9EaYW7');
+        })();
+
+        document.getElementById('emailjs-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const btn = this.querySelector('button');
+            btn.textContent = 'Отправка...';
+            btn.disabled = true;
+
+            // ВАШИ Service ID и Template ID
+            emailjs.sendForm('service_2iea7go', 'template_qf3p5h9', this, 'CkeDzCISzXv9EaYW7')
+                .then(function() {
+                    document.getElementById('message').innerHTML = '<div style="color: #00d4ff;">✅ Заявление отправлено.</div>';
+                    btn.textContent = 'Отправить заявку';
+                    btn.disabled = false;
+                    document.getElementById('emailjs-form').reset();
+                }, function(error) {
+                    document.getElementById('message').innerHTML = '<div style="color: #ff2e63;">❌ Ошибка: ' + JSON.stringify(error) + '</div>';
+                    btn.textContent = 'Отправить заявку';
+                    btn.disabled = false;
+                });
+        });
+    </script>
 
 </body>
 </html>
